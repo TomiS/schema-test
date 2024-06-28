@@ -1,0 +1,9 @@
+# Javascript dependencies, also inside sub packages
+**/node_modules/*
+
+# ReScript compiled javascript files
+*.bs.js
+lib
+# Yarn sometimes produces an error log we don't want to commit
+yarn-error.log
+

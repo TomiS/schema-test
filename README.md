@@ -1,0 +1,2 @@
+- Run `yarn install` (or similar, tested with old yarn 1.2x)
+- Run `yarn test` (should compiler ReScript and cause one succesful and one failed test)
