@@ -4,6 +4,8 @@ import * as Jest from "@glennsl/rescript-jest/src/jest.bs.js";
 import * as Types from "../src/Types.bs.js";
 import * as S$RescriptSchema from "rescript-schema/src/S.bs.js";
 
+var conditionJSON = "\n{\n  \"type\": \"and\",\n  \"value\": [\n    {\n      \"type\": \"equal\",\n      \"value\": [\n        \"account\",\n        \"1234\"        \n      ]\n    },\n    {\n      \"type\": \"greater-than\",\n      \"value\": [\n        \"cost-center\",\n        \"1000\"        \n      ]\n    }\n  ]\n}\n";
+
 Jest.describe("Rule Condition serialize to match", (function () {
         Jest.test("rule condition", (function () {
                 var condition = {
@@ -34,7 +36,7 @@ Jest.describe("Rule Condition serialize to match", (function () {
                     ]
                   }
                 };
-                var result = JSON.parse("\n{\n  \"type\": \"and\",\n  \"value\": [\n    {\n      \"type\": \"equal\",\n      \"value\": [\n        \"account\",\n        \"1234\"        \n      ]\n    },\n    {\n      \"type\": \"greater-than\",\n      \"value\": [\n        \"cost-center\",\n        \"1000\"        \n      ]\n    }\n  ]\n}\n");
+                var result = JSON.parse(conditionJSON);
                 return Jest.Expect.toEqual(Jest.Expect.expect(S$RescriptSchema.serializeOrRaiseWith(condition, Types.Condition.schema)), result);
               }));
       }));
@@ -72,12 +74,12 @@ Jest.describe("Rule Condition serialize to match", (function () {
                 var data = {
                   condition: condition
                 };
-                var result = JSON.parse("\n{\n  \"condition\": {\n    \"type\": \"and\",\n    \"value\": [\n      {\n        \"type\": \"equal\",\n        \"value\": [\n          \"account\",\n          \"1234\"        \n        ]\n      },\n      {\n        \"type\": \"greater-than\",\n        \"value\": [\n          \"cost-center\",\n          \"1000\"        \n        ]\n      }\n    ]\n  }\n}\n");
+                var result = JSON.parse("\n{\n  \"condition\": " + conditionJSON + "\n}\n");
                 return Jest.Expect.toEqual(Jest.Expect.expect(S$RescriptSchema.serializeOrRaiseWith(data, Types.bodySchema)), result);
               }));
       }));
 
 export {
-  
+  conditionJSON ,
 }
 /*  Not a pure module */
