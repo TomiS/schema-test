@@ -1,0 +1,26 @@
+{
+  "name": "schema-test",
+  "private": true,
+  "engines": {
+    "node": ">=16.14",
+    "yarn": ">=1.21.0 <2.0"
+  },
+  "scripts": {
+    "build": "rescript build",
+    "watch": "rescript build -w",
+    "format": "rescript format -all",
+    "clean": "rescript clean",
+    "clean-and-build": "yarn res-clean && yarn res-build",
+    "test": "yarn build; ./node_modules/jest/bin/jest.js ./lib/js/__tests__/*",
+    "lint": "eslint --ext .bs.js ./packages"
+  },
+  "dependencies": {
+    "rescript": "11.1.2",
+    "@rescript/core": "1.5.0",
+    "rescript-schema": "7.0.1",
+    "rescript-schema-ppx": "7.0.1"
+  },
+  "devDependencies": {
+    "@glennsl/rescript-jest": "0.11.0"
+  }
+}

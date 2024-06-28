@@ -1,0 +1,41 @@
+{
+  "name": "schema-test",
+  "bsc-flags": [
+    "-open RescriptCore",
+    "-open RescriptSchema"
+  ],
+  "bs-dependencies": [
+    "@rescript/core",
+    "rescript-schema"
+  ],
+  "bs-dev-dependencies": [
+    "@glennsl/rescript-jest"
+  ],
+  "suffix": ".bs.js",
+  "jsx": {
+    "version": 4,
+    "mode": "automatic"
+  },
+  "ppx-flags": ["rescript-schema-ppx/bin"],
+  "sources": [
+    {
+      "dir": "src",
+      "subdirs": true
+    },
+    {
+      "dir": "__tests__",
+      "subdirs": true,
+      "type": "dev"
+    }
+  ],
+  "package-specs": [
+    {
+      "module": "esmodule",
+      "in-source": true
+    },
+    {
+      "module": "commonjs",
+      "in-source": false
+    }
+  ]
+}

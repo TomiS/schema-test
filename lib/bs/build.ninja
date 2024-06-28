@@ -1,0 +1,26 @@
+rescript = 1
+g_finger := /home/tomis/Documents/Git/schema-test/node_modules/@rescript/core/lib/ocaml/install.stamp
+g_finger := /home/tomis/Documents/Git/schema-test/node_modules/rescript-schema/lib/ocaml/install.stamp
+g_finger := /home/tomis/Documents/Git/schema-test/node_modules/@glennsl/rescript-jest/lib/ocaml/install.stamp
+rule astj
+  command = /home/tomis/Documents/Git/schema-test/node_modules/rescript/linux/bsc.exe  -bs-v 11.1.2,1719474832. -ppx /home/tomis/Documents/Git/schema-test/node_modules/rescript-schema-ppx/bin -bs-jsx 4 -bs-jsx-mode automatic -uncurried -open RescriptCore -open RescriptSchema -absname -bs-ast -o $out $i
+o __tests__/Types_test.ast : astj ../../__tests__/Types_test.res
+rule deps_dev
+  command = /home/tomis/Documents/Git/schema-test/node_modules/rescript/linux/bsb_helper.exe -g -hash 25303f4cce068a4f817d948f5b0329ec $in
+  restat = 1
+o __tests__/Types_test.d : deps_dev __tests__/Types_test.ast
+rule mij_dev
+  command = /home/tomis/Documents/Git/schema-test/node_modules/rescript/linux/bsc.exe -I __tests__ -I src -I /home/tomis/Documents/Git/schema-test/node_modules/@rescript/core/lib/ocaml -I /home/tomis/Documents/Git/schema-test/node_modules/rescript-schema/lib/ocaml -I /home/tomis/Documents/Git/schema-test/node_modules/@glennsl/rescript-jest/lib/ocaml -open RescriptCore -open RescriptSchema  -uncurried -bs-package-name schema-test -bs-package-output commonjs:lib/js/$in_d:.bs.js -bs-package-output esmodule:$in_d:.bs.js -bs-v $g_finger $i
+  dyndep = 1
+  restat = 1
+o __tests__/Types_test.cmj __tests__/Types_test.cmi ../../__tests__/Types_test.bs.js ../js/__tests__/Types_test.bs.js : mij_dev __tests__/Types_test.ast
+o src/Types.ast : astj ../../src/Types.res
+rule deps
+  command = /home/tomis/Documents/Git/schema-test/node_modules/rescript/linux/bsb_helper.exe -hash 25303f4cce068a4f817d948f5b0329ec $in
+  restat = 1
+o src/Types.d : deps src/Types.ast
+rule mij
+  command = /home/tomis/Documents/Git/schema-test/node_modules/rescript/linux/bsc.exe -I src -I /home/tomis/Documents/Git/schema-test/node_modules/@rescript/core/lib/ocaml -I /home/tomis/Documents/Git/schema-test/node_modules/rescript-schema/lib/ocaml -open RescriptCore -open RescriptSchema  -uncurried -bs-package-name schema-test -bs-package-output commonjs:lib/js/$in_d:.bs.js -bs-package-output esmodule:$in_d:.bs.js -bs-v $g_finger $i
+  dyndep = 1
+  restat = 1
+o src/Types.cmj src/Types.cmi ../../src/Types.bs.js ../js/src/Types.bs.js : mij src/Types.ast
