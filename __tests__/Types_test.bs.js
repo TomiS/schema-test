@@ -6,71 +6,44 @@ import * as S$RescriptSchema from "rescript-schema/src/S.bs.js";
 
 var conditionJSON = "\n{\n  \"type\": \"and\",\n  \"value\": [\n    {\n      \"type\": \"equal\",\n      \"value\": [\n        \"account\",\n        \"1234\"        \n      ]\n    },\n    {\n      \"type\": \"greater-than\",\n      \"value\": [\n        \"cost-center\",\n        \"1000\"        \n      ]\n    }\n  ]\n}\n";
 
-Jest.describe("Rule Condition serialize to match", (function () {
+var condition = {
+  TAG: "Connective",
+  _0: {
+    operator: "and",
+    conditions: [
+      {
+        TAG: "Comparison",
+        _0: {
+          operator: "equal",
+          values: [
+            "account",
+            "1234"
+          ]
+        }
+      },
+      {
+        TAG: "Comparison",
+        _0: {
+          operator: "greater-than",
+          values: [
+            "cost-center",
+            "1000"
+          ]
+        }
+      }
+    ]
+  }
+};
+
+Jest.describe("This already succeeds", (function () {
         Jest.test("rule condition", (function () {
-                var condition = {
-                  TAG: "Connective",
-                  _0: {
-                    operator: "and",
-                    conditions: [
-                      {
-                        TAG: "Comparison",
-                        _0: {
-                          operator: "equal",
-                          values: [
-                            "account",
-                            "1234"
-                          ]
-                        }
-                      },
-                      {
-                        TAG: "Comparison",
-                        _0: {
-                          operator: "greater-than",
-                          values: [
-                            "cost-center",
-                            "1000"
-                          ]
-                        }
-                      }
-                    ]
-                  }
-                };
                 var result = JSON.parse(conditionJSON);
                 return Jest.Expect.toEqual(Jest.Expect.expect(S$RescriptSchema.serializeOrRaiseWith(condition, Types.Condition.schema)), result);
               }));
       }));
 
-Jest.describe("Rule Condition serialize to match", (function () {
+Jest.describe("This fails but should succeed too", (function () {
         Jest.test("rule condition", (function () {
-                var condition = {
-                  TAG: "Connective",
-                  _0: {
-                    operator: "and",
-                    conditions: [
-                      {
-                        TAG: "Comparison",
-                        _0: {
-                          operator: "equal",
-                          values: [
-                            "account",
-                            "1234"
-                          ]
-                        }
-                      },
-                      {
-                        TAG: "Comparison",
-                        _0: {
-                          operator: "greater-than",
-                          values: [
-                            "cost-center",
-                            "1000"
-                          ]
-                        }
-                      }
-                    ]
-                  }
-                };
                 var data = {
                   condition: condition
                 };
@@ -81,5 +54,6 @@ Jest.describe("Rule Condition serialize to match", (function () {
 
 export {
   conditionJSON ,
+  condition ,
 }
 /*  Not a pure module */

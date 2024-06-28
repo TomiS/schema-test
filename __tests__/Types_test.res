@@ -24,46 +24,33 @@ let conditionJSON = `
 }
 `
 
-describe("Rule Condition serialize to match", () => {
+let condition = Condition.Connective({
+  operator: And,
+  conditions: [
+    Condition.Comparison({
+      operator: Equal,
+      values: ("account", "1234"),
+    }),
+    Condition.Comparison({
+      operator: GreaterThan,
+      values: ("cost-center", "1000"),
+    }),
+  ],
+})
+
+describe("This already succeeds", () => {
   open Expect
 
   test("rule condition", () => {
-    let condition = Condition.Connective({
-      operator: And,
-      conditions: [
-        Condition.Comparison({
-          operator: Equal,
-          values: ("account", "1234"),
-        }),
-        Condition.Comparison({
-          operator: GreaterThan,
-          values: ("cost-center", "1000"),
-        }),
-      ],
-    })
-
     let result = Js.Json.parseExn(conditionJSON)
     expect(condition->S.serializeOrRaiseWith(Condition.schema))->Expect.toEqual(result)
   })
 })
 
-describe("Rule Condition serialize to match", () => {
+describe("This fails but should succeed too", () => {
   open Expect
 
   test("rule condition", () => {
-    let condition = Condition.Connective({
-      operator: And,
-      conditions: [
-        Condition.Comparison({
-          operator: Equal,
-          values: ("account", "1234"),
-        }),
-        Condition.Comparison({
-          operator: GreaterThan,
-          values: ("cost-center", "1000"),
-        }),
-      ],
-    })
     // Simply wrapping the condition inside a normal record makes the whole thing crash
     let data: body = {condition: condition}
 
